@@ -21,6 +21,9 @@ export default function Dashboard({ sendQueryToBackend }) {
   const [isTyping, setIsTyping] = useState(false);
   const [sessions, setSessions] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(window.innerWidth > 600);
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
+
+
 
   const handleToggleHistory = useCallback(() => {
     setSidebarOpen(prev => !prev);
@@ -34,7 +37,7 @@ export default function Dashboard({ sendQueryToBackend }) {
     setSessionsLoading(true);
     try {
       const res = await fetch(
-        `https://aimedicis-backend.onrender.com/sessions/${encodeURIComponent(email)}`
+        `${API_BASE_URL}/sessions/${encodeURIComponent(email)}`
       );
       const data = await res.json();
       const userSessions = data.sessions || [];
@@ -83,9 +86,7 @@ export default function Dashboard({ sendQueryToBackend }) {
         setMessagesLoading(true);
         
         const res = await fetch(
-          `https://aimedicis-backend.onrender.com/${encodeURIComponent(email)}/${encodeURIComponent(
-            sessionId
-          )}/messages`
+          `${API_BASE_URL}/sessions/${encodeURIComponent(email)}/${encodeURIComponent(sessionId)}/messages`
         );
         const data = await res.json();
         
@@ -205,7 +206,7 @@ export default function Dashboard({ sendQueryToBackend }) {
       const tempSessionId = `new-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
       
       // Create new session on backend
-      const res = await fetch("https://aimedicis-backend.onrender.com/new-session", {
+      const res = await fetch(`${API_BASE_URL}/new-session`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 

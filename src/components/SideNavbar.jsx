@@ -28,6 +28,9 @@ export default function SideNavbar({
   const [sessions, setSessions] = useState([]);
   const [sessionsLoading, setSessionsLoading] = useState(false);
   const loading = externalSessionsLoading ?? sessionsLoading;
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
+
+
 
   // Fetch sessions from backend whenever email changes
   useEffect(() => {
@@ -37,7 +40,7 @@ export default function SideNavbar({
       setSessionsLoading(true);
       try {
         const res = await fetch(
-          `https://aimedicis-backend.onrender.com/sessions/${encodeURIComponent(email)}`
+          `${API_BASE_URL}/sessions/${encodeURIComponent(email)}`
         );
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
