@@ -17,6 +17,9 @@ const LoginDialog = ({ open, onOpenChange }) => {
   const [email, setEmailInput] = useState("");
   const { setEmail, createNewSession, setExistingSession } = useContext(UserContext);
   const navigate = useNavigate();
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,7 +30,7 @@ const LoginDialog = ({ open, onOpenChange }) => {
       setEmail(email);
 
       // Try creating a session on the backend
-      const res = await fetch("https://aimedicis-backend.onrender.com/new-session", {
+      const res = await fetch(`${API_BASE_URL}/new-session`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),

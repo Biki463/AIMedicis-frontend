@@ -21,6 +21,9 @@ function App() {
 
 function DashboardWithBackend() {
   const { email, sessionId, setSessionId } = useContext(UserContext);
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
+
+
 
   // ✅ Automatically generate session if missing
   React.useEffect(() => {
@@ -38,7 +41,7 @@ function DashboardWithBackend() {
 
   const sendQueryToBackend = async (query, currentSessionId) => {
     try {
-      const response = await fetch("https://aimedicis-backend.onrender.com/query", {
+      const response = await fetch(`${API_BASE_URL}/query`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
