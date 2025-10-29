@@ -38,7 +38,7 @@ function DashboardWithBackend() {
 
   const sendQueryToBackend = async (query, currentSessionId) => {
     try {
-      const response = await fetch("http://localhost:8000/query", {
+      const response = await fetch("https://aimedicis-backend.onrender.com/query", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -34,7 +34,7 @@ export default function Dashboard({ sendQueryToBackend }) {
     setSessionsLoading(true);
     try {
       const res = await fetch(
-        `http://localhost:8000/sessions/${encodeURIComponent(email)}`
+        `https://aimedicis-backend.onrender.com/sessions/${encodeURIComponent(email)}`
       );
       const data = await res.json();
       const userSessions = data.sessions || [];
@@ -83,7 +83,7 @@ export default function Dashboard({ sendQueryToBackend }) {
         setMessagesLoading(true);
         
         const res = await fetch(
-          `http://localhost:8000/sessions/${encodeURIComponent(email)}/${encodeURIComponent(
+          `https://aimedicis-backend.onrender.com/${encodeURIComponent(email)}/${encodeURIComponent(
             sessionId
           )}/messages`
         );
@@ -205,7 +205,7 @@ export default function Dashboard({ sendQueryToBackend }) {
       const tempSessionId = `new-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
       
       // Create new session on backend
-      const res = await fetch("http://localhost:8000/new-session", {
+      const res = await fetch("https://aimedicis-backend.onrender.com/new-session", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 

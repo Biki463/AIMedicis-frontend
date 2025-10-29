@@ -37,7 +37,7 @@ export default function SideNavbar({
       setSessionsLoading(true);
       try {
         const res = await fetch(
-          `http://localhost:8000/sessions/${encodeURIComponent(email)}`
+          `https://aimedicis-backend.onrender.com/sessions/${encodeURIComponent(email)}`
         );
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);

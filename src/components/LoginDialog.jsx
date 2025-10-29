@@ -27,7 +27,7 @@ const LoginDialog = ({ open, onOpenChange }) => {
       setEmail(email);
 
       // Try creating a session on the backend
-      const res = await fetch("http://localhost:8000/new-session", {
+      const res = await fetch("https://aimedicis-backend.onrender.com/new-session", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
