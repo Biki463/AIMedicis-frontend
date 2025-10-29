@@ -7,6 +7,7 @@ import {
   DialogContentText,
   TextField,
   Button,
+  CircularProgress,
   Box,
   Typography,
 } from "@mui/material";
@@ -15,6 +16,7 @@ import { UserContext} from "../UserContext";
 
 const LoginDialog = ({ open, onOpenChange }) => {
   const [email, setEmailInput] = useState("");
+  const [loading, setLoading] = useState(false);
   const { setEmail, createNewSession, setExistingSession } = useContext(UserContext);
   const navigate = useNavigate();
   const API_BASE_URL = process.env.REACT_APP_API_URL;
@@ -23,7 +25,10 @@ const LoginDialog = ({ open, onOpenChange }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!email) return;
+    if (!email || loading) return;
+
+    // mark as loading to disable the button and prevent double submits
+    setLoading(true);
 
     try {
       // First set the email
@@ -139,9 +144,19 @@ const LoginDialog = ({ open, onOpenChange }) => {
                 transform: "translateX(4px)",
               },
             }}
+            disabled={loading}
           >
-            Continue
-            <ArrowRight size={16} className="arrow-icon" style={{ marginLeft: "8px" }} />
+            {loading ? (
+              <>
+                Continue
+                <CircularProgress size={16} color="inherit" style={{ marginLeft: 8 }} />
+              </>
+            ) : (
+              <>
+                Continue
+                <ArrowRight size={16} className="arrow-icon" style={{ marginLeft: "8px" }} />
+              </>
+            )}
           </Button>
         </form>
 
